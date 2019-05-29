@@ -5,6 +5,8 @@ const publicRoutes = {
   'POST /validate': 'UserController.validate',
   //Members
   'POST /member': 'MemberController.create',
+  //Member_details
+  'POST /member/add/membership': 'MemberDetailsController.create',
 };
 
 module.exports = publicRoutes;
