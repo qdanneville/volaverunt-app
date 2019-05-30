@@ -11,6 +11,7 @@ const MemberController = () => {
                 firstname: body.firstname,
                 lastname: body.lastname,
                 email: body.email,
+                membership_id:body.membership_id
             });
 
             return res.status(200).json({member});
@@ -23,6 +24,8 @@ const MemberController = () => {
     const getAll = async (req, res) => {
         try {
             const members = await Member.findAll();
+            console.log(members[0].getMembership());
+
 
             return res.status(200).json({ members });
         } catch (err) {

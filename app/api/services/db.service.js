@@ -8,7 +8,8 @@ const dbService = (environment, migrate) => {
   const syncDB = () => database.sync();
 
   const successfulDBStart = () => (
-    console.info('connection to the database has been established successfully')
+    console.info('connection to the database has been established successfully'),
+    require('../test')
   );
 
   const errorDBStart = (err) => (
