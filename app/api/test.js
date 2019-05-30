@@ -23,10 +23,30 @@ const createMembers = () => {
         { firsname: 'Martine', lastname: 'Poisson', email: 'martine.poisson@gmail.com', membership_id: 1 },
     ]).then(newMembers => {
         console.log('Members creation :', newMembers)
+        getMembership();
     }).catch(err => {
         console.log('Error while members creation :', err)
     })
 }
 
+const getMembership = () => {
+    Member.findOne({
+        where: { email: 'quentin.danneville@gmail.com' }, include: 'membership'
+    }).then(userFound => {
+        console.log('User membership entries : ', userFound.membership.entries + '\n');
+        getMembershipsById();
+    })
+}
+
+const getMembershipsById = () => {
+    Membership.findByPk(
+        1, { include: ['members'] }
+    ).then(membership => {
+        console.log('Members with membership : ' + membership.name + ' are : ' + membership.get().members)
+        console.log(membership.get().members)
+    })
+}
+
 // START the creation
+// Everythings starts with the membership creation
 createMembership();
