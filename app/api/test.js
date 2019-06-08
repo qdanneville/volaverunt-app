@@ -1,5 +1,6 @@
 const Member = require('./models/Member');
 const Membership = require('./models/Membership');
+const MemberDetails = require('./models/MemberDetails');
 
 console.log('TESTING BY CREATING DATA');
 
@@ -16,7 +17,7 @@ const createMembership = () => {
             entries: 10
         },
     ]).then(newMembership => {
-        console.log('Membership creation :', newMembership)
+        // console.log('Membership creation :', newMembership)
         createMembers();
     }).catch(err => {
         console.log("Error while membership creation :", err);
@@ -29,10 +30,21 @@ const createMembers = () => {
         { firsname: 'Jean', lastname: 'Pedro', email: 'Jean.pedro@gmail.com', membership_id: 1 },
         { firsname: 'Martine', lastname: 'Poisson', email: 'martine.poisson@gmail.com', membership_id: 1 },
     ]).then(newMembers => {
-        console.log('Members creation :', newMembers)
+        // console.log('Members creation :', newMembers)
         getMembership();
+        createMemberDetails();
     }).catch(err => {
         console.log('Error while members creation :', err)
+    })
+}
+
+const createMemberDetails = () => {
+    MemberDetails.create({
+        member_id: 1,
+        membership_id: 2,
+        entries: 10
+    }).then(newMemberDetails => {
+        // console.log('new Member details :', newMemberDetails);
     })
 }
 
@@ -40,7 +52,9 @@ const getMembership = () => {
     Member.findOne({
         where: { email: 'quentin.danneville@gmail.com' }, include: 'membership'
     }).then(userFound => {
-        console.log('User membership entries : ', userFound.membership.entries + '\n');
+        userFound.getMembership().then(membership => {
+            console.log('MEMBERSHIP NAME:', membership[0].name)
+        })
         getMembershipsById();
     })
 }
@@ -49,8 +63,8 @@ const getMembershipsById = () => {
     Membership.findByPk(
         1, { include: ['members'] }
     ).then(membership => {
-        console.log('Members with membership : ' + membership.name + ' are : ' + membership.get().members)
-        console.log(membership.get().members)
+        // console.log('Members with membership : ' + membership.name + ' are : ' + membership.get().members)
+        // console.log(membership.get().members)
     })
 }
 

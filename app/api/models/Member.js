@@ -18,7 +18,7 @@ const Member = sequelize.define('Member', {
   },
 }, { tableName });
 
-Member.belongsTo(Membership, {foreignKey: 'membership_id', as:'membership'} )
-Membership.hasMany(Member, {as:'members'})
+// Member.belongsTo(Membership, {foreignKey: 'membership_id', as:'membership'} )
+// Membership.hasMany(Member, {as:'members'})
 
 module.exports = Member;
