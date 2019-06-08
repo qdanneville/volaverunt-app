@@ -4,11 +4,18 @@ const Membership = require('./models/Membership');
 console.log('TESTING BY CREATING DATA');
 
 const createMembership = () => {
-    Membership.create({
-        name: 'Carte illimitée au mois',
-        description: 'Carte illimitée au mois',
-        entries: 1000
-    }).then(newMembership => {
+    Membership.bulkCreate([
+        {
+            name: 'Carte illimitée au mois',
+            description: 'Carte illimitée au mois',
+            entries: 1000
+        },
+        {
+            name: 'Carte 10 entrées au mois',
+            description: 'Carte 10 entrées',
+            entries: 10
+        },
+    ]).then(newMembership => {
         console.log('Membership creation :', newMembership)
         createMembers();
     }).catch(err => {
