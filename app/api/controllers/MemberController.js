@@ -1,5 +1,4 @@
 const Member = require('../models/Member');
-const Membership = require('../models/Member');
 
 const MemberController = () => {
 
